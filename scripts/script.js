@@ -46,8 +46,8 @@ const clearbBtn = document.querySelector('.clear-btn');
 const delBtn = document.querySelector('.delete-btn');
 const evalBtn = document.querySelector('.submit-btn');
 const opBtn = document.querySelectorAll('.opbtn');
-const numberPattern = /\d+/g;
-const symbolPattern = /[!@#$%^&*(),.?":{}|<>/+-]/g;
+const numberPattern = /\d+(\.\d*)?|\.\d+/g;
+const symbolPattern = /[!@#$%^&*(),?":{}|<>/+-]/g;
 let opString = "";
 
 buttons.forEach(button => button.addEventListener('click', updateD));
