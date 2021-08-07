@@ -70,8 +70,8 @@ clearbBtn.addEventListener('click', (e) => {
     resultDisplay.textContent = "";
 })
 delBtn.addEventListener('click', (e) => {
-    opDisplay.textContent = "";
-    let tempArray = resultDisplay.textContent.split("").pop();
+    opDisplay.textContent = opDisplay.textContent.replace(/.$/,"");
+    opString = opString.replace(/.$/,"");
 });
 
 evalBtn.addEventListener('click', calculate);
