@@ -85,7 +85,7 @@ function calculate (e) {
         opString = `${operate(numArray[0],numArray[1],opArray[0])}`;
         opDisplay.textContent += " =";
     } else if (opArray.length === 2){
-        opString = `${operate(numArray[0],numArray[1],opArray[0])} ${opArray[1]}`;
+        opString = `${operate(numArray[0],numArray[1],opArray[0])} ${opArray[1]} `;
         opDisplay.textContent = `${opString}`;
     }
 
@@ -93,5 +93,5 @@ function calculate (e) {
 
 function updateD (e) {
     opString += e.target.value;
-    opDisplay.textContent += ` ${e.target.textContent}`;
+    opDisplay.textContent += `${e.target.textContent}`;
 }
