@@ -74,12 +74,23 @@ delBtn.addEventListener('click', (e) => {
     opString = opString.replace(/.$/,"");
 });
 
-evalBtn.addEventListener('click', calculate);
+evalBtn.addEventListener('click', (e) => {
+    let numArray = opString.match(numberPattern);
+    if (numArray.length !== 2) return;
+    calculate(e);
+
+});
 
 function calculate (e) {
 
     let numArray = opString.match(numberPattern);
     let opArray = opString.match(symbolPattern);
+    if (numArray[1] == 0 && opArray[0] == "/") {        //Catches Division by Zero
+        opDisplay.textContent = opDisplay.textContent.replace(/.$/,"");
+        opString = opString.replace(/.$/,"");
+        resultDisplay.textContent = "DIVISION BY ZERO ISN'T ALLOWED";
+        return;
+    }
     console.log(opArray);
     if (opArray.length === 1) {
         opString = `${operate(numArray[0],numArray[1],opArray[0])}`;
