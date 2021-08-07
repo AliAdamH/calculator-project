@@ -17,11 +17,16 @@
     align-items: center;
 }
 .display {
-    width: 320px;
-    height: 100px;
+    width: 350px;
+    height: 110px;
     border: 1px solid black;
     background-color: white;
     border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 800;
 }
 
 .btn-pad {
@@ -44,5 +49,13 @@
 }
 .delete-btn {
     grid-column: 3/5;
+    font-size: inherit;
+}
+
+p {
+    width: 95%;
+    text-align: end;
+}
+.opbtn {
     font-size: inherit;
 }
