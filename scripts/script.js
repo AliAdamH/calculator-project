@@ -46,6 +46,7 @@ const clearbBtn = document.querySelector('.clear-btn');
 const delBtn = document.querySelector('.delete-btn');
 const evalBtn = document.querySelector('.submit-btn');
 const opBtn = document.querySelectorAll('.opbtn');
+const decimalBtn = document.querySelector('.dotbtn');
 const numberPattern = /\d+(\.\d*)?|\.\d+/g;
 const symbolPattern = /[!@#$%^&*(),?":{}|<>/+-]/g;
 let opString = "";
@@ -79,6 +80,17 @@ evalBtn.addEventListener('click', (e) => {
     if (numArray.length !== 2) return;
     calculate(e);
 
+});
+decimalBtn.addEventListener('click', (e) => {
+    let findDot = opString.match(/\.\d+|\.$/g)
+    let opArray = opString.match(symbolPattern);
+    if (!findDot) {  //Inserts "." if no dot is present in the operation string;
+        updateD(e);
+    } else if (findDot != null && opArray != null) { //Allow dot insertion on the second operand.
+        updateD(e);
+    } else {
+        return;
+    }
 });
 
 function calculate (e) {
