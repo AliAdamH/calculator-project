@@ -86,7 +86,7 @@ decimalBtn.addEventListener('click', (e) => {
     let opArray = opString.match(symbolPattern);
     if (!findDot) {  //Inserts "." if no dot is present in the operation string;
         updateD(e);
-    } else if (findDot != null && opArray != null) { //Allow dot insertion on the second operand.
+    } else if (findDot.length < 2 && opArray != null) { //Allow dot insertion on the second operand.
         updateD(e);
     } else {
         return;
@@ -115,6 +115,9 @@ function calculate (e) {
 }
 
 function updateD (e) {
+    if (e.target.className === 'btn' && opDisplay.textContent.includes('=')) { 
+        return;
+    }
     opString += e.target.value;
     opDisplay.textContent += `${e.target.textContent}`;
 }
