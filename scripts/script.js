@@ -48,7 +48,7 @@ const evalBtn = document.querySelector('.submit-btn');
 const opBtn = document.querySelectorAll('.opbtn');
 const decimalBtn = document.querySelector('.dotbtn');
 const numberPattern = /\d+(\.\d*)?|\.\d+/g;
-const symbolPattern = /[!@#$%^&*(),?":{}|<>/+-]/g;
+const symbolPattern = /[*/+-]/g; ///(?<=([+-]?\d))([*/+-])(?=\d)/g;
 let opString = "";
 
 buttons.forEach(button => button.addEventListener('click', updateD));
@@ -107,7 +107,7 @@ function calculate (e) {
     if (opArray.length === 1) {
         opString = `${operate(numArray[0],numArray[1],opArray[0])}`;
         opDisplay.textContent += " =";
-    } else if (opArray.length === 2){
+    } else if (opArray.length === 2){ //Bug with negative numbers.
         opString = `${operate(numArray[0],numArray[1],opArray[0])} ${opArray[1]} `;
         opDisplay.textContent = `${opString}`;
     }
