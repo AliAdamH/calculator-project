@@ -73,6 +73,7 @@ delBtn.addEventListener('click', (e) => {
         tempArr.pop();
         tempArr.length == 0 ? nArr.pop() : nArr[0] = tempArr.join('');
     } else {
+        opDisplay.textContent = opDisplay.textContent.replace(/.$/,"")
         return;
     }
     opDisplay.textContent = opDisplay.textContent.replace(/.$/,"");
@@ -180,3 +181,41 @@ function handleOpEvents(e) {
         
     }
 }
+
+function handleKeys (e) {
+    switch(e.key) {
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+            const button = document.querySelector(`[data-key="${e.key}"]`)
+            button.click();
+            break;
+        case "=":
+        case "Enter":
+            const evalBtn = document.querySelector('[data-key="="');
+            evalBtn.click();
+            break;
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+            const opButton = document.querySelector(`[data-key="${e.key}"`);
+            opButton.click();
+            break;
+        case "Backspace":
+            delBtn.click();
+            break;
+        case "Delete":
+            clearbBtn.click();             
+    }
+    return;
+}
+
+window.addEventListener('keydown', handleKeys);
