@@ -1,3 +1,15 @@
+const buttons = document.querySelectorAll('.btn');
+const opDisplay = document.querySelector('#op-display');
+const resultDisplay = document.querySelector("#result-display");
+const clearbBtn = document.querySelector('.clear-btn');
+const delBtn = document.querySelector('.delete-btn');
+const evalBtn = document.querySelector('.submit-btn');
+const opBtn = document.querySelectorAll('.opbtn');
+const decimalBtn = document.querySelector('.dotbtn');
+let nArr = [];
+let oArr = [];
+
+
 //ADD
 function add (a,b) {
     return  a + b ;
@@ -12,6 +24,7 @@ function subtract (a,b) {
     return  a - b ;
 }
 //o1 = First Operand
+//o2 = Second Operand
 //op = Operator
 function operate (o1,o2,op) {
     o1 = +o1;
@@ -34,23 +47,9 @@ function operate (o1,o2,op) {
     return result;
 }
 
-/* Create the functions that populate the display when you click the number buttons… 
-you should be storing the ‘display value’ in a variable somewhere for use in the next step.*/
 
 // Get the buttons.
 
-const buttons = document.querySelectorAll('.btn');
-const opDisplay = document.querySelector('#op-display');
-const resultDisplay = document.querySelector("#result-display");
-const clearbBtn = document.querySelector('.clear-btn');
-const delBtn = document.querySelector('.delete-btn');
-const evalBtn = document.querySelector('.submit-btn');
-const opBtn = document.querySelectorAll('.opbtn');
-const decimalBtn = document.querySelector('.dotbtn');
-const numberPattern = /\d+(\.\d*)?|\.\d+/g;
-const symbolPattern = /[*/+-]/g; ///(?<=([+-]?\d))([*/+-])(?=\d)/g;
-let nArr = [];
-let oArr = [];
 
 buttons.forEach(button => button.addEventListener('click', updateD));
 opBtn.forEach(opButton => opButton.addEventListener('click', (e) => handleOpEvents(e)));
@@ -61,7 +60,7 @@ clearbBtn.addEventListener('click', (e) => {
     resultDisplay.textContent = "";
 })
 delBtn.addEventListener('click', (e) => {
-    //opString = opString.replace(/.$/,"");
+
     if (nArr.length == 2) {
         let tempArr = nArr[1].split('');
         tempArr.pop();
@@ -88,7 +87,6 @@ evalBtn.addEventListener('click', (e) => {
 });
 decimalBtn.addEventListener('click', (e) => {
     let findDot = nArr.join('').match(/\.\d+|\.$/g);
-    //let opArray = opString.match(symbolPattern);
     if (!findDot) {  //Inserts "." if no dot is present in the op string;
         console.log('here');
         updateD(e);
@@ -102,11 +100,8 @@ decimalBtn.addEventListener('click', (e) => {
 
 function calculate (e) {
 
-    //let numArray = opString.match(numberPattern);
-    //let opArray = opString.match(symbolPattern);
     if (nArr[1] == 0 && oArr[0] == "/") {        //Catches Division by Zero
         opDisplay.textContent = opDisplay.textContent.replace(/.$/,"");
-        //opString = opString.replace(/.$/,"");
         nArr.pop();
         resultDisplay.textContent = "DIVISION BY ZERO ISN'T ALLOWED";
         return;
@@ -137,7 +132,7 @@ function updateD (e) {
         console.log('hello');
         return;
     }
-    //opString += e.target.value;
+
     opDisplay.textContent += `${e.target.textContent}`;
     console.log(e.target.textContent);
 }
@@ -152,30 +147,36 @@ function handleOpEvents(e) {
     
     let operandCount = nArr.length;
     let operatorCount = oArr.length;
-    if (!operandCount && !operatorCount) {
-        if (e.target.textContent == '-'){
-            nArr.push('-')
-            opDisplay.textContent += `${e.target.textContent}`;
-        } else {
-            nArr.push(0);
+    switch(true) {
+        case (!operandCount && !operatorCount): 
+        
+            if (e.target.textContent == '-'){
+                nArr.push('-')
+                opDisplay.textContent += `${e.target.textContent}`;
+            } else {
+                nArr.push(0);
+                oArr.push(e.target.textContent);
+                opDisplay.textContent += `0${e.target.textContent}`;
+            }
+            break;
+            
+        case (!operatorCount && operandCount === 1): 
+        
             oArr.push(e.target.textContent);
-            opDisplay.textContent += `0${e.target.textContent}`;
-        }
-    }
-    if (!operatorCount && operandCount === 1) {
-        oArr.push(e.target.textContent);
-        opDisplay.textContent += `${e.target.textContent}`;
-    }
-    if (operatorCount === 1 && operandCount === 1 && e.target.textContent == '-') {
-        nArr.push('-');
-        opDisplay.textContent += `${e.target.textContent}`;
-    }
-    if (operatorCount === 1 && operandCount === 2)
-    //if (operandCount === 1 && !operatorCount) updateD(e);
-    if (operandCount == 2 && operatorCount) {
-        //updateD(e);
-        const result = calculate(e);
-        oArr.push(e.target.textContent);
-        opDisplay.textContent = `${result}${e.target.textContent}`;
+            opDisplay.textContent += `${e.target.textContent}`;
+            break;
+            
+        case (operatorCount === 1 && operandCount === 1 && e.target.textContent == '-'):
+        
+            nArr.push('-');
+            opDisplay.textContent += `${e.target.textContent}`;
+            break;
+        
+        case (operandCount == 2 && operatorCount == 1): 
+            console.log('hello');
+            const result = calculate(e);
+            oArr.push(e.target.textContent);
+            opDisplay.textContent = `${result}${e.target.textContent}`;
+        
     }
 }
