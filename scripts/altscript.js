@@ -90,8 +90,10 @@ decimalBtn.addEventListener('click', (e) => {
     let findDot = nArr.join('').match(/\.\d+|\.$/g);
     //let opArray = opString.match(symbolPattern);
     if (!findDot) {  //Inserts "." if no dot is present in the op string;
+        console.log('here');
         updateD(e);
-    } else if (findDot.length < 2 && oArr != null) { //Allow dot insertion on the second operand.
+    } else if (findDot.length < 2 && oArr.length == 1) { //Allow dot insertion on the second operand.
+        console.log('there');
         updateD(e);
     } else {
         return;
