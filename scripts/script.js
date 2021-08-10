@@ -82,7 +82,7 @@ evalBtn.addEventListener('click', (e) => {
 
 });
 decimalBtn.addEventListener('click', (e) => {
-    let findDot = opString.match(/\.\d+|\.$/g)
+    let findDot = opString.match(/\.\d+|\.$/g);
     let opArray = opString.match(symbolPattern);
     if (!findDot) {  //Inserts "." if no dot is present in the operation string;
         updateD(e);
